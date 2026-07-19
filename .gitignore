@@ -1,0 +1,26 @@
+# Java
+target/
+*.class
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Node
+node_modules/
+npm-debug.log*
+
+# WeChat Mini Program
+miniprogram_npm/
+miniapp/miniprogram_npm/
+
+# IDE
+.idea/
+.idea/workspace.xml
+*.iml
+
+# WeChat Mini Program local settings
+miniapp/project.private.config.json
+
+# OS
+.DS_Store
+Thumbs.db

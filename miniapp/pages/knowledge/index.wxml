@@ -1,0 +1,11 @@
+<view class="page">
+  <view class="section">
+    <view class="title">知识库</view>
+    <view class="subtitle">后续维护训练、食材、营养知识，并提供流式问答。</view>
+  </view>
+
+  <view class="section card">
+    <view class="subtitle">当前阶段</view>
+    <view class="title">待开发</view>
+  </view>
+</view>

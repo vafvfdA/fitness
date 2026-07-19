@@ -1,0 +1,23 @@
+<view class="page">
+  <view class="section">
+    <view class="title">计划与目标</view>
+    <view class="subtitle">设置当前体重、目标体重、训练周期和提醒。</view>
+  </view>
+
+  <view class="section card">
+    <view class="metric-row">
+      <view class="metric">
+        <text class="metric-value">--</text>
+        <text class="metric-label">当前体重</text>
+      </view>
+      <view class="metric">
+        <text class="metric-value">--</text>
+        <text class="metric-label">目标体重</text>
+      </view>
+      <view class="metric">
+        <text class="metric-value">--</text>
+        <text class="metric-label">距离目标</text>
+      </view>
+    </view>
+  </view>
+</view>

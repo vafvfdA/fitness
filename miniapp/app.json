@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/today/index",
+    "pages/workout/index",
+    "pages/diet/index",
+    "pages/calendar/index",
+    "pages/plan/index",
+    "pages/knowledge/index",
+    "pages/profile/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "健身饮食",
+    "navigationBarBackgroundColor": "#0f172a",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f6f7fb"
+  },
+  "tabBar": {
+    "color": "#64748b",
+    "selectedColor": "#0f766e",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/today/index",
+        "text": "今日"
+      },
+      {
+        "pagePath": "pages/calendar/index",
+        "text": "日历"
+      },
+      {
+        "pagePath": "pages/plan/index",
+        "text": "计划"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
