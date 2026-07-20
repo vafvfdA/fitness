@@ -1,50 +1,79 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+Version change: 0.0.0 -> 1.0.0
+Modified principles:
+- 模板占位原则 -> 中文优先
+- 模板占位原则 -> Git 提交和推送由用户确认
+- 模板占位原则 -> 测试先行
+- 模板占位原则 -> 答疑排错不创建功能规格
+- 模板占位原则 -> 技术栈边界
+Added sections:
+- 技术约束
+- 开发工作流
+Removed sections:
+- 无
+Templates requiring updates:
+- .specify/templates/spec-template.md: pending，本轮直接生成中文规格，模板后续可单独本地化
+- .specify/templates/plan-template.md: pending，本轮直接生成中文计划，模板后续可单独本地化
+- .specify/templates/tasks-template.md: pending，本轮直接生成中文任务，模板后续可单独本地化
+Follow-up TODOs:
+- 无
+-->
+
+# 健身饮食管理项目宪章
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. 中文优先
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+本项目所有面向用户的回答、Markdown 文档、规格、计划、任务、测试说明和评审说明必须使用中文。
+代码标识、接口路径、表名、字段名、命令、依赖名、错误码、协议名等技术契约可以保留英文。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Git 提交和推送由用户确认
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+AI 可以查看 Git 状态、整理变更范围、准备提交信息建议，但不得在用户未明确要求时执行
+`git commit`、`git push`、创建远端分支或创建 PR。执行提交或推送前，必须说明变更范围和提交信息。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. 测试先行
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+开发新功能、修复缺陷或修改业务行为时，必须先编写或更新会失败的自动化测试，确认失败原因符合预期，
+再实现最小生产代码使测试通过。跳过测试先行必须得到用户明确批准，并在最终说明中记录风险。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. 答疑排错不创建功能规格
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+只有用户明确要求开发功能、修改业务行为、调整数据模型、调整 API 契约或修复影响代码行为的缺陷时，
+才创建 `specs/<编号>-<功能名>/`。用户只是询问概念、排查 Docker/Navicat/Git/环境变量问题、解释命令、
+讨论表设计或面试问题时，不创建新的 spec。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. 技术栈边界
+
+后端使用 Java、Spring Boot、MySQL 和 Flyway；移动端前端使用微信小程序。没有用户明确批准，不引入新的
+后端框架、ORM、数据库、前端框架或跨端方案。数据库结构变更必须通过 Flyway 迁移脚本落实。
+
+## 技术约束
+
+- 后端采用 Controller、Service、Repository 分层，优先复用项目已有风格。
+- 当前登录体系未完成前，允许开发期接口临时使用 `X-User-Id` 传递用户 ID。
+- 所有训练、饮食、体重等数据都属于个人敏感数据，接口必须按用户维度隔离。
+- 热量、饮食和训练建议只能作为记录和参考，不得包装成医疗诊断或医学保证。
+
+## 开发工作流
+
+- 功能开发必须先有 `spec.md`，说明业务目标、用户故事、验收场景、边界和成功标准。
+- 技术实现前必须有 `plan.md`，说明技术栈、数据模型、接口契约、验证方式和宪章检查结果。
+- 编码前必须有 `tasks.md`，任务必须可执行、可验证，并体现测试先行。
+- 实现完成后必须运行相关自动化测试；声明完成前必须提供最新测试证据。
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+本宪章优先于临时口头习惯和旧版本地 SDD 文档。修改宪章必须说明版本变化、修改原因和影响范围。
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+版本规则：
+
+- MAJOR：删除或重定义核心原则。
+- MINOR：新增核心原则、技术约束或开发关口。
+- PATCH：澄清文字、修正错别字或不改变含义的表达。
+
+每次功能开发、测试验收和提交准备都必须检查是否符合本宪章。
+
+**Version**: 1.0.0 | **Ratified**: 2026-07-20 | **Last Amended**: 2026-07-20
