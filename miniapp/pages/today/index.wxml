@@ -1,23 +1,29 @@
 <view class="page">
   <view class="section">
     <view class="title">今日记录</view>
-    <view class="subtitle">快速查看今天的训练、饮食和计划。</view>
+    <view class="subtitle">{{date}}</view>
   </view>
 
   <view class="section card">
-    <view class="subtitle">训练摘要</view>
+    <view class="card-head">
+      <view>
+        <view class="section-title">训练摘要</view>
+        <view class="subtitle">{{summary.bodyPartsText}}</view>
+      </view>
+      <view class="status-text" wx:if="{{loading}}">加载中</view>
+    </view>
     <view class="metric-row">
       <view class="metric">
-        <text class="metric-value">0</text>
-        <text class="metric-label">动作</text>
+        <text class="metric-value">{{summary.workoutCount}}</text>
+        <text class="metric-label">记录</text>
       </view>
       <view class="metric">
-        <text class="metric-value">0</text>
+        <text class="metric-value">{{summary.totalSets}}</text>
         <text class="metric-label">组数</text>
       </view>
       <view class="metric">
-        <text class="metric-value">0</text>
-        <text class="metric-label">千卡</text>
+        <text class="metric-value">{{summary.workoutCalories}}</text>
+        <text class="metric-label">消耗</text>
       </view>
     </view>
     <view class="button-row">
@@ -27,7 +33,17 @@
   </view>
 
   <view class="section card">
-    <view class="subtitle">今日计划</view>
-    <view class="title">暂未配置</view>
+    <view class="section-title">饮食摘要</view>
+    <view class="metric-row">
+      <view class="metric">
+        <text class="metric-value">{{summary.dietCalories}}</text>
+        <text class="metric-label">摄入</text>
+      </view>
+      <view class="metric">
+        <text class="metric-value">{{summary.netCalories}}</text>
+        <text class="metric-label">净热量</text>
+      </view>
+    </view>
+    <view class="error-text" wx:if="{{error}}">{{error}}</view>
   </view>
 </view>

@@ -1,3 +1,64 @@
 .title {
   letter-spacing: 0;
 }
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.section-title {
+  color: #0f172a;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.status-text,
+.empty-text,
+.item-meta,
+.food-line {
+  color: #64748b;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.error-text {
+  margin-top: 18rpx;
+  color: #dc2626;
+  font-size: 24rpx;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.input {
+  min-height: 72rpx;
+  padding: 0 18rpx;
+  border-radius: 10rpx;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 26rpx;
+  box-sizing: border-box;
+}
+
+.full-button {
+  width: 100%;
+  margin-top: 22rpx;
+}
+
+.record-item {
+  padding: 22rpx 0;
+  border-top: 1rpx solid #e2e8f0;
+}
+
+.item-title {
+  color: #0f172a;
+  font-size: 28rpx;
+  font-weight: 600;
+}

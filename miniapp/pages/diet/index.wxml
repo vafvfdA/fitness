@@ -1,21 +1,56 @@
 <view class="page">
   <view class="section">
     <view class="title">饮食记录</view>
-    <view class="subtitle">后续在这里录入食物、餐次、数量和预估摄入热量。</view>
+    <view class="subtitle">{{date}}</view>
   </view>
 
   <view class="section card">
-    <view class="subtitle">当前日期</view>
-    <view class="title">{{date}}</view>
+    <view class="card-head">
+      <view class="section-title">当天饮食</view>
+      <view class="status-text" wx:if="{{loading}}">加载中</view>
+    </view>
     <view class="metric-row">
       <view class="metric">
-        <text class="metric-value">0</text>
+        <text class="metric-value">{{summary.totalCalories}}</text>
         <text class="metric-label">摄入千卡</text>
+      </view>
+      <view class="metric">
+        <text class="metric-value">{{summary.foodCount}}</text>
+        <text class="metric-label">食物</text>
       </view>
     </view>
     <view class="button-row">
-      <button class="primary-button">添加食物</button>
       <button class="ghost-button" bindtap="goWorkout">查看训练</button>
     </view>
+    <view class="error-text" wx:if="{{error}}">{{error}}</view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">新增食物</view>
+    <view class="form-grid">
+      <input class="input" data-field="mealType" value="{{form.mealType}}" bindinput="onInput" placeholder="餐次" />
+      <input class="input" data-field="foodName" value="{{form.foodName}}" bindinput="onInput" placeholder="食物名称" />
+      <input class="input" data-field="amount" value="{{form.amount}}" bindinput="onInput" type="digit" placeholder="数量" />
+      <input class="input" data-field="unit" value="{{form.unit}}" bindinput="onInput" placeholder="单位" />
+      <input class="input" data-field="calories" value="{{form.calories}}" bindinput="onInput" type="digit" placeholder="热量" />
+      <input class="input" data-field="proteinG" value="{{form.proteinG}}" bindinput="onInput" type="digit" placeholder="蛋白质" />
+      <input class="input" data-field="fatG" value="{{form.fatG}}" bindinput="onInput" type="digit" placeholder="脂肪" />
+      <input class="input" data-field="carbG" value="{{form.carbG}}" bindinput="onInput" type="digit" placeholder="碳水" />
+    </view>
+    <button class="primary-button full-button" bindtap="submitFood" loading="{{saving}}">添加食物</button>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">记录列表</view>
+    <view class="empty-text" wx:if="{{records.length === 0}}">暂无饮食记录</view>
+    <block wx:for="{{records}}" wx:key="id">
+      <view class="record-item">
+        <view class="item-title">{{item.totalCalories}} 千卡</view>
+        <view class="item-meta">{{item.foods.length}} 个食物</view>
+        <view class="food-line" wx:for="{{item.foods}}" wx:for-item="food" wx:key="id">
+          {{food.mealType}} · {{food.foodName}} · {{food.amount}}{{food.unit}} · {{food.calories}} 千卡
+        </view>
+      </view>
+    </block>
   </view>
 </view>

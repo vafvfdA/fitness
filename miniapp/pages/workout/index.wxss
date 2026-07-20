@@ -1,3 +1,59 @@
 .title {
   letter-spacing: 0;
 }
+
+.card-head,
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.section-title {
+  color: #0f172a;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.status-text,
+.empty-text,
+.item-meta,
+.exercise-line {
+  color: #64748b;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.error-text {
+  margin-top: 18rpx;
+  color: #dc2626;
+  font-size: 24rpx;
+}
+
+.list-item,
+.record-item {
+  padding: 22rpx 0;
+  border-top: 1rpx solid #e2e8f0;
+}
+
+.item-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.item-title {
+  color: #0f172a;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.mini-button {
+  width: 132rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  border-radius: 10rpx;
+  background: #0f766e;
+  color: #ffffff;
+  font-size: 24rpx;
+}

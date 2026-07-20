@@ -1,3 +1,27 @@
 .title {
   letter-spacing: 0;
 }
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.section-title {
+  color: #0f172a;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.status-text {
+  color: #0f766e;
+  font-size: 24rpx;
+}
+
+.error-text {
+  margin-top: 18rpx;
+  color: #dc2626;
+  font-size: 24rpx;
+}
