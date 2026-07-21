@@ -1,3 +1,99 @@
 .title {
   letter-spacing: 0;
 }
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.section-title {
+  color: #0f172a;
+  font-size: 32rpx;
+  font-weight: 700;
+  text-align: center;
+}
+
+.status-text {
+  color: #0f766e;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.month-button {
+  width: 132rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  border-radius: 10rpx;
+  background: #e2e8f0;
+  color: #0f172a;
+  font-size: 24rpx;
+}
+
+.error-text {
+  margin-top: 18rpx;
+  color: #dc2626;
+  font-size: 24rpx;
+}
+
+.calendar-card {
+  padding: 16rpx;
+}
+
+.week-row,
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8rpx;
+}
+
+.week-cell {
+  padding: 10rpx 0;
+  color: #64748b;
+  font-size: 22rpx;
+  text-align: center;
+}
+
+.day-cell {
+  min-height: 132rpx;
+  padding: 10rpx;
+  border-radius: 8rpx;
+  background: #f8fafc;
+  box-sizing: border-box;
+}
+
+.muted-day {
+  opacity: 0.38;
+}
+
+.active-day {
+  background: #ecfdf5;
+}
+
+.day-number {
+  color: #0f172a;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.body-parts,
+.calorie-text {
+  margin-top: 4rpx;
+  color: #0f766e;
+  font-size: 20rpx;
+  line-height: 1.3;
+}
+
+.diet-link {
+  width: 100%;
+  height: 38rpx;
+  margin-top: 8rpx;
+  padding: 0;
+  line-height: 38rpx;
+  border-radius: 8rpx;
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 20rpx;
+}

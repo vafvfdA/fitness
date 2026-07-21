@@ -4,6 +4,10 @@ const {
   mapTodaySummary,
   summarizeWorkoutRecords,
   summarizeDietRecords,
+  formatMonth,
+  shiftMonth,
+  buildCalendarGrid,
+  summarizeCalendarMonth,
   toNumber
 } = require("../utils/view-model");
 
@@ -71,10 +75,61 @@ function testToNumber() {
   assert.strictEqual(toNumber(undefined), 0);
 }
 
+function testCalendarMonthHelpers() {
+  assert.strictEqual(formatMonth(new Date(2026, 6, 1)), "2026-07");
+  assert.strictEqual(shiftMonth("2026-01", -1), "2025-12");
+  assert.strictEqual(shiftMonth("2026-12", 1), "2027-01");
+}
+
+function testBuildCalendarGrid() {
+  const grid = buildCalendarGrid({
+    month: "2026-07",
+    days: [
+      {
+        date: "2026-07-21",
+        bodyParts: ["胸", "肩"],
+        totalSets: 5,
+        estimatedCalories: 300,
+        workoutCount: 1
+      }
+    ]
+  });
+
+  assert.strictEqual(grid.month, "2026-07");
+  assert.strictEqual(grid.monthTitle, "2026年07月");
+  assert.strictEqual(grid.days.length, 35);
+  assert.strictEqual(grid.days[0].date, "2026-06-28");
+  assert.strictEqual(grid.days[0].inMonth, false);
+
+  const trainedDay = grid.days.find((day) => day.date === "2026-07-21");
+  assert.strictEqual(trainedDay.inMonth, true);
+  assert.strictEqual(trainedDay.hasWorkout, true);
+  assert.strictEqual(trainedDay.bodyPartsText, "胸、肩");
+  assert.strictEqual(trainedDay.estimatedCalories, 300);
+
+  const emptyDay = grid.days.find((day) => day.date === "2026-07-22");
+  assert.strictEqual(emptyDay.hasWorkout, false);
+  assert.strictEqual(emptyDay.bodyPartsText, "");
+}
+
+function testSummarizeCalendarMonth() {
+  assert.deepStrictEqual(
+    summarizeCalendarMonth([
+      { hasWorkout: true, totalSets: 5, estimatedCalories: 300 },
+      { hasWorkout: false, totalSets: 0, estimatedCalories: 0 },
+      { hasWorkout: true, totalSets: 3, estimatedCalories: 180 }
+    ]),
+    { trainingDays: 2, totalSets: 8, estimatedCalories: 480 }
+  );
+}
+
 testFormatDate();
 testMapTodaySummary();
 testMapEmptyTodaySummary();
 testSummaries();
 testToNumber();
+testCalendarMonthHelpers();
+testBuildCalendarGrid();
+testSummarizeCalendarMonth();
 
 console.log("view-model tests passed");
