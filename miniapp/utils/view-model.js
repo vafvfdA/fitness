@@ -182,6 +182,22 @@ function mapTodayPlan(today) {
   };
 }
 
+/** 按份量缩放食物模板，返回可直接填入饮食表单的字段。 */
+function scaleFoodTemplate(template, amount) {
+  const t = template || {};
+  const amt = toNumber(amount) || 1;
+  const round1 = (value) => Math.round(value * 10) / 10;
+  return {
+    foodName: t.foodName || "",
+    unit: t.defaultUnit || "",
+    amount: String(amt),
+    calories: String(Math.round(toNumber(t.caloriesPerUnit) * amt)),
+    proteinG: String(round1(toNumber(t.proteinPerUnit) * amt)),
+    fatG: String(round1(toNumber(t.fatPerUnit) * amt)),
+    carbG: String(round1(toNumber(t.carbPerUnit) * amt))
+  };
+}
+
 module.exports = {
   formatDate,
   formatMonth,
@@ -193,5 +209,6 @@ module.exports = {
   summarizeCalendarMonth,
   mapProfile,
   mapTodayPlan,
+  scaleFoodTemplate,
   toNumber
 };

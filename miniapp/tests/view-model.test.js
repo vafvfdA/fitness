@@ -10,6 +10,7 @@ const {
   summarizeCalendarMonth,
   mapProfile,
   mapTodayPlan,
+  scaleFoodTemplate,
   toNumber
 } = require("../utils/view-model");
 
@@ -208,5 +209,51 @@ testBuildCalendarGrid();
 testSummarizeCalendarMonth();
 testMapProfile();
 testMapTodayPlan();
+
+function testScaleFoodTemplate() {
+  const chicken = {
+    foodName: "鸡胸肉",
+    defaultUnit: "100g",
+    caloriesPerUnit: 133,
+    proteinPerUnit: 31,
+    fatPerUnit: 1.2,
+    carbPerUnit: 0
+  };
+
+  // amount=1：原值
+  const one = scaleFoodTemplate(chicken, 1);
+  assert.strictEqual(one.foodName, "鸡胸肉");
+  assert.strictEqual(one.unit, "100g");
+  assert.strictEqual(one.amount, "1");
+  assert.strictEqual(one.calories, "133");
+  assert.strictEqual(one.proteinG, "31");
+  assert.strictEqual(one.fatG, "1.2");
+  assert.strictEqual(one.carbG, "0");
+
+  // amount=2：翻倍
+  const two = scaleFoodTemplate(chicken, 2);
+  assert.strictEqual(two.calories, "266");
+  assert.strictEqual(two.proteinG, "62");
+  assert.strictEqual(two.fatG, "2.4");
+  assert.strictEqual(two.carbG, "0");
+
+  // amount=0.5：减半，热量四舍五入
+  const half = scaleFoodTemplate(chicken, 0.5);
+  assert.strictEqual(half.calories, "67");
+  assert.strictEqual(half.proteinG, "15.5");
+  assert.strictEqual(half.fatG, "0.6");
+
+  // amount 缺省默认 1
+  const def = scaleFoodTemplate(chicken, "");
+  assert.strictEqual(def.amount, "1");
+  assert.strictEqual(def.calories, "133");
+
+  // 模板为 null：返回空字段，不抛错
+  const empty = scaleFoodTemplate(null, 1);
+  assert.strictEqual(empty.foodName, "");
+  assert.strictEqual(empty.unit, "");
+  assert.strictEqual(empty.calories, "0");
+}
+testScaleFoodTemplate();
 
 console.log("view-model tests passed");

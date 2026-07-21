@@ -27,6 +27,10 @@
 
   <view class="section card">
     <view class="section-title">新增食物</view>
+    <view class="template-entry">
+      <button class="ghost-button" bindtap="openTemplatePicker">从模板选</button>
+      <view class="status-text">模板里没有？可直接在下面手填</view>
+    </view>
     <view class="form-grid">
       <input class="input" data-field="mealType" value="{{form.mealType}}" bindinput="onInput" placeholder="餐次" />
       <input class="input" data-field="foodName" value="{{form.foodName}}" bindinput="onInput" placeholder="食物名称" />
@@ -52,5 +56,44 @@
         </view>
       </view>
     </block>
+  </view>
+
+  <!-- 模板选择器 -->
+  <view wx:if="{{picker.visible}}" class="picker-mask">
+    <view class="picker-panel">
+      <view class="picker-head">
+        <view class="section-title">选择食物模板</view>
+        <view class="picker-close" bindtap="closeTemplatePicker">关闭</view>
+      </view>
+      <input class="input picker-search" value="{{picker.keyword}}" bindinput="onPickerKeywordInput" placeholder="搜索食物名称" />
+      <view class="status-text" wx:if="{{picker.loading}}">加载中...</view>
+      <view class="empty-text" wx:if="{{!picker.loading && picker.templates.length === 0}}">暂无模板</view>
+      <scroll-view scroll-y class="picker-list">
+        <view wx:for="{{picker.templates}}" wx:key="id" class="template-item" bindtap="pickTemplate" data-template="{{item}}">
+          <view class="template-name">{{item.foodName}}</view>
+          <view class="template-meta">{{item.caloriesPerUnit}} 千卡 / {{item.defaultUnit}}<text wx:if="{{item.mine}}" class="mine-tag">自建</text></view>
+        </view>
+      </scroll-view>
+      <button class="primary-button full-button" bindtap="openAddTemplate">新增模板</button>
+    </view>
+  </view>
+
+  <!-- 新增模板表单 -->
+  <view wx:if="{{addForm.visible}}" class="picker-mask">
+    <view class="picker-panel">
+      <view class="picker-head">
+        <view class="section-title">新增食物模板</view>
+        <view class="picker-close" bindtap="closeAddTemplate">关闭</view>
+      </view>
+      <view class="form-grid">
+        <input class="input" data-field="foodName" value="{{addForm.foodName}}" bindinput="onAddTemplateInput" placeholder="食物名称" />
+        <input class="input" data-field="defaultUnit" value="{{addForm.defaultUnit}}" bindinput="onAddTemplateInput" placeholder="单位(如 100g/个)" />
+        <input class="input" data-field="caloriesPerUnit" value="{{addForm.caloriesPerUnit}}" bindinput="onAddTemplateInput" type="digit" placeholder="每单位热量" />
+        <input class="input" data-field="proteinPerUnit" value="{{addForm.proteinPerUnit}}" bindinput="onAddTemplateInput" type="digit" placeholder="每单位蛋白g" />
+        <input class="input" data-field="fatPerUnit" value="{{addForm.fatPerUnit}}" bindinput="onAddTemplateInput" type="digit" placeholder="每单位脂肪g" />
+        <input class="input" data-field="carbPerUnit" value="{{addForm.carbPerUnit}}" bindinput="onAddTemplateInput" type="digit" placeholder="每单位碳水g" />
+      </view>
+      <button class="primary-button full-button" bindtap="saveTemplate" loading="{{addForm.saving}}">保存模板</button>
+    </view>
   </view>
 </view>
