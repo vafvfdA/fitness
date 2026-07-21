@@ -123,6 +123,65 @@ function summarizeCalendarMonth(days) {
   }, { trainingDays: 0, totalSets: 0, estimatedCalories: 0 });
 }
 
+function formatNumber(value) {
+  const num = Number(value);
+  return Number.isFinite(num) ? String(num) : String(value);
+}
+
+function mapProfile(profile) {
+  if (!profile) {
+    return {
+      exists: false,
+      currentWeightKg: "",
+      targetWeightKg: "",
+      weightDiffKg: "",
+      diffText: "未设置目标",
+      dailyCalorieTarget: "",
+      gender: "",
+      heightCm: "",
+      birthday: ""
+    };
+  }
+  const diff = profile.weightDiffKg;
+  const diffNum = diff == null ? null : Number(diff);
+  let diffText = "已达标";
+  if (diffNum !== null && diffNum > 0) {
+    diffText = `需减重 ${formatNumber(diffNum)} kg`;
+  } else if (diffNum !== null && diffNum < 0) {
+    diffText = `需增重 ${formatNumber(-diffNum)} kg`;
+  }
+  return {
+    exists: true,
+    currentWeightKg: profile.currentWeightKg != null ? formatNumber(profile.currentWeightKg) : "",
+    targetWeightKg: profile.targetWeightKg != null ? formatNumber(profile.targetWeightKg) : "",
+    weightDiffKg: diffNum !== null ? formatNumber(diffNum) : "",
+    diffText,
+    dailyCalorieTarget: profile.dailyCalorieTarget != null ? formatNumber(profile.dailyCalorieTarget) : "",
+    gender: profile.gender || "",
+    heightCm: profile.heightCm != null ? formatNumber(profile.heightCm) : "",
+    birthday: profile.birthday || ""
+  };
+}
+
+function mapTodayPlan(today) {
+  if (!today) {
+    return { exists: false, statusText: "未设置计划", bodyPartText: "" };
+  }
+  let statusText = "今日休息";
+  if (today.cycleDayIndex === 0) {
+    statusText = "计划未开始";
+  } else if (today.isTrainingDay) {
+    statusText = "今日训练";
+  }
+  return {
+    exists: true,
+    statusText,
+    bodyPartText: today.todayBodyPart || "",
+    cycleDayIndex: today.cycleDayIndex,
+    isTrainingDay: today.isTrainingDay
+  };
+}
+
 module.exports = {
   formatDate,
   formatMonth,
@@ -132,5 +191,7 @@ module.exports = {
   summarizeDietRecords,
   buildCalendarGrid,
   summarizeCalendarMonth,
+  mapProfile,
+  mapTodayPlan,
   toNumber
 };

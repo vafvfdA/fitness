@@ -1,23 +1,58 @@
-<view class="page">
-  <view class="section">
-    <view class="title">计划与目标</view>
-    <view class="subtitle">设置当前体重、目标体重、训练周期和提醒。</view>
-  </view>
+<view class="plan-page">
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
 
-  <view class="section card">
-    <view class="metric-row">
-      <view class="metric">
-        <text class="metric-value">--</text>
-        <text class="metric-label">当前体重</text>
+  <view wx:elif="{{error}}" class="error">{{error}}</view>
+
+  <block wx:else>
+    <view class="today-card">
+      <view class="today-status">{{today.statusText}}</view>
+      <view wx:if="{{today.bodyPartText}}" class="today-body">今日部位：{{today.bodyPartText}}</view>
+    </view>
+
+    <view wx:if="{{plan}}" class="plan-card">
+      <view class="row"><text class="label">计划名称</text><text class="value">{{plan.name}}</text></view>
+      <view class="row"><text class="label">训练/休息</text><text class="value">{{plan.trainDays}}练{{plan.restDays}}休</text></view>
+      <view class="row"><text class="label">起始日期</text><text class="value">{{plan.startDate}}</text></view>
+      <view class="row"><text class="label">部位轮换</text><text class="value">{{plan.muscleRotation}}</text></view>
+      <button wx:if="{{!editing}}" bindtap="startEdit">编辑</button>
+    </view>
+
+    <view wx:if="{{!plan && !editing}}" class="empty">
+      <view class="empty-text">还未设置训练计划</view>
+      <button type="primary" bindtap="startEdit">立即设置</button>
+    </view>
+
+    <view wx:if="{{editing}}" class="edit-form">
+      <view class="form-row">
+        <text class="form-label">计划名称</text>
+        <input class="form-input" data-field="name" value="{{form.name}}" bindinput="onInput" />
       </view>
-      <view class="metric">
-        <text class="metric-value">--</text>
-        <text class="metric-label">目标体重</text>
+      <view class="form-row">
+        <text class="form-label">训练天数</text>
+        <input class="form-input" type="number" data-field="trainDays" value="{{form.trainDays}}" bindinput="onInput" />
       </view>
-      <view class="metric">
-        <text class="metric-value">--</text>
-        <text class="metric-label">距离目标</text>
+      <view class="form-row">
+        <text class="form-label">休息天数</text>
+        <input class="form-input" type="number" data-field="restDays" value="{{form.restDays}}" bindinput="onInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">起始日期</text>
+        <picker mode="date" value="{{form.startDate}}" bindchange="onDateChange">
+          <view class="picker">{{form.startDate}}</view>
+        </picker>
+      </view>
+      <view class="form-row">
+        <text class="form-label">部位轮换</text>
+        <input class="form-input" placeholder="逗号分隔，如 胸,肩,背" data-field="muscleRotation" value="{{form.muscleRotation}}" bindinput="onInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">每日热量目标</text>
+        <input class="form-input" type="number" data-field="dailyCalorieTarget" value="{{form.dailyCalorieTarget}}" bindinput="onInput" />
+      </view>
+      <view class="form-actions">
+        <button bindtap="cancelEdit">取消</button>
+        <button type="primary" bindtap="savePlan">保存</button>
       </view>
     </view>
-  </view>
+  </block>
 </view>

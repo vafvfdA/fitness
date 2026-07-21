@@ -1,3 +1,109 @@
-.title {
-  letter-spacing: 0;
+.profile-page {
+  padding: 24rpx;
+}
+
+.loading,
+.error,
+.empty {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #888;
+}
+
+.profile-card,
+.edit-form,
+.history-section {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row.highlight .value {
+  color: #e6553a;
+  font-weight: 600;
+  font-size: 36rpx;
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.value {
+  color: #333;
+  font-size: 30rpx;
+}
+
+.edit-btn {
+  margin-top: 24rpx;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-label {
+  width: 240rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.form-actions {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 32rpx;
+}
+
+.form-actions button {
+  flex: 1;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-date {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.history-weight {
+  color: #333;
+  font-size: 30rpx;
+  font-weight: 500;
 }

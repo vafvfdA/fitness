@@ -1,11 +1,58 @@
-<view class="page">
-  <view class="section">
-    <view class="title">我的</view>
-    <view class="subtitle">后续管理个人资料、单位偏好和账号信息。</view>
-  </view>
+<view class="profile-page">
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
 
-  <view class="section card">
-    <view class="subtitle">登录状态</view>
-    <view class="title">开发模式</view>
-  </view>
+  <view wx:elif="{{error}}" class="error">{{error}}</view>
+
+  <block wx:else>
+    <view class="profile-card">
+      <view class="row">
+        <text class="label">当前体重</text>
+        <text class="value">{{profile.exists ? profile.currentWeightKg + ' kg' : '未设置'}}</text>
+      </view>
+      <view class="row">
+        <text class="label">目标体重</text>
+        <text class="value">{{profile.exists ? profile.targetWeightKg + ' kg' : '未设置'}}</text>
+      </view>
+      <view class="row highlight">
+        <text class="label">体重差值</text>
+        <text class="value">{{profile.diffText}}</text>
+      </view>
+      <view class="row" wx:if="{{profile.dailyCalorieTarget}}">
+        <text class="label">每日热量目标</text>
+        <text class="value">{{profile.dailyCalorieTarget}} kcal</text>
+      </view>
+
+      <button wx:if="{{!editing}}" class="edit-btn" bindtap="startEdit">编辑</button>
+    </view>
+
+    <view wx:if="{{editing}}" class="edit-form">
+      <view class="form-row">
+        <text class="form-label">当前体重(kg)</text>
+        <input class="form-input" type="digit" data-field="currentWeightKg" value="{{form.currentWeightKg}}" bindinput="onInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">目标体重(kg)</text>
+        <input class="form-input" type="digit" data-field="targetWeightKg" value="{{form.targetWeightKg}}" bindinput="onInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">每日热量目标</text>
+        <input class="form-input" type="number" data-field="dailyCalorieTarget" value="{{form.dailyCalorieTarget}}" bindinput="onInput" />
+      </view>
+      <view class="form-actions">
+        <button bindtap="cancelEdit">取消</button>
+        <button type="primary" bindtap="saveProfile">保存</button>
+      </view>
+    </view>
+
+    <view class="history-section">
+      <view class="section-title">体重历史</view>
+      <view wx:if="{{history.length === 0}}" class="empty">暂无历史记录</view>
+      <view wx:else class="history-list">
+        <view wx:for="{{history}}" wx:key="id" class="history-item">
+          <text class="history-date">{{item.recordDate}}</text>
+          <text class="history-weight">{{item.weightKg}} kg</text>
+        </view>
+      </view>
+    </view>
+  </block>
 </view>

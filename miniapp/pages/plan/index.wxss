@@ -1,3 +1,99 @@
-.title {
-  letter-spacing: 0;
+.plan-page {
+  padding: 24rpx;
+}
+
+.loading,
+.error,
+.empty {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #888;
+}
+
+.empty-text {
+  margin-bottom: 24rpx;
+}
+
+.today-card {
+  background: linear-gradient(135deg, #4a90d9, #357abd);
+  border-radius: 16rpx;
+  padding: 48rpx 32rpx;
+  margin-bottom: 24rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.today-status {
+  font-size: 44rpx;
+  font-weight: 600;
+}
+
+.today-body {
+  font-size: 30rpx;
+  margin-top: 16rpx;
+  opacity: 0.9;
+}
+
+.plan-card,
+.edit-form {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.value {
+  color: #333;
+  font-size: 30rpx;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-label {
+  width: 200rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.picker {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.form-actions {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 32rpx;
+}
+
+.form-actions button {
+  flex: 1;
 }

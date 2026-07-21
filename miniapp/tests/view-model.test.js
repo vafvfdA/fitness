@@ -8,6 +8,8 @@ const {
   shiftMonth,
   buildCalendarGrid,
   summarizeCalendarMonth,
+  mapProfile,
+  mapTodayPlan,
   toNumber
 } = require("../utils/view-model");
 
@@ -123,6 +125,79 @@ function testSummarizeCalendarMonth() {
   );
 }
 
+function testMapProfile() {
+  const losing = mapProfile({
+    currentWeightKg: 75,
+    targetWeightKg: 70,
+    weightDiffKg: 5,
+    dailyCalorieTarget: 2000,
+    gender: "male",
+    heightCm: 175,
+    birthday: "1995-01-01"
+  });
+  assert.strictEqual(losing.exists, true);
+  assert.strictEqual(losing.currentWeightKg, "75");
+  assert.strictEqual(losing.targetWeightKg, "70");
+  assert.strictEqual(losing.weightDiffKg, "5");
+  assert.strictEqual(losing.diffText, "需减重 5 kg");
+
+  const gaining = mapProfile({
+    currentWeightKg: 68,
+    targetWeightKg: 70,
+    weightDiffKg: -2,
+    dailyCalorieTarget: 2000
+  });
+  assert.strictEqual(gaining.diffText, "需增重 2 kg");
+
+  const met = mapProfile({
+    currentWeightKg: 70,
+    targetWeightKg: 70,
+    weightDiffKg: 0,
+    dailyCalorieTarget: 2000
+  });
+  assert.strictEqual(met.diffText, "已达标");
+
+  const empty = mapProfile(null);
+  assert.strictEqual(empty.exists, false);
+  assert.strictEqual(empty.diffText, "未设置目标");
+}
+
+function testMapTodayPlan() {
+  const training = mapTodayPlan({
+    date: "2026-07-22",
+    isTrainingDay: true,
+    cycleDayIndex: 1,
+    todayBodyPart: "胸",
+    daysSinceStart: 0
+  });
+  assert.strictEqual(training.exists, true);
+  assert.strictEqual(training.statusText, "今日训练");
+  assert.strictEqual(training.bodyPartText, "胸");
+
+  const rest = mapTodayPlan({
+    date: "2026-07-22",
+    isTrainingDay: false,
+    cycleDayIndex: 4,
+    todayBodyPart: "",
+    daysSinceStart: 3
+  });
+  assert.strictEqual(rest.statusText, "今日休息");
+  assert.strictEqual(rest.bodyPartText, "");
+
+  const future = mapTodayPlan({
+    date: "2026-07-22",
+    isTrainingDay: false,
+    cycleDayIndex: 0,
+    todayBodyPart: "",
+    daysSinceStart: -2
+  });
+  assert.strictEqual(future.statusText, "计划未开始");
+
+  const empty = mapTodayPlan(null);
+  assert.strictEqual(empty.exists, false);
+  assert.strictEqual(empty.statusText, "未设置计划");
+}
+
 testFormatDate();
 testMapTodaySummary();
 testMapEmptyTodaySummary();
@@ -131,5 +206,7 @@ testToNumber();
 testCalendarMonthHelpers();
 testBuildCalendarGrid();
 testSummarizeCalendarMonth();
+testMapProfile();
+testMapTodayPlan();
 
 console.log("view-model tests passed");
